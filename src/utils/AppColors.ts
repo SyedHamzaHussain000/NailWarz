@@ -7,6 +7,7 @@ type Colors = {
     DARKGRAY: string;
     PEACHCOLOUR: string;
     INPUTBG: string
+    BGCOLOURS: string
 
   };
   
@@ -18,7 +19,8 @@ const AppColors: Colors = {
     BLUE: "#001AB0",
     DARKGRAY: "#939393",
     PEACHCOLOUR: "#F7D794",
-    INPUTBG: "#F5F5F5"
+    INPUTBG: "#F5F5F5",
+    BGCOLOURS: "#FDFDFD"
 
   };
   

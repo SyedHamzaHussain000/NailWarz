@@ -4,7 +4,7 @@ import AppColors from '../../utils/AppColors'
 import { responsiveFontSize, responsiveWidth } from '../../utils/Responsive_Dimensions'
 
 type textProps = {
-    title?: string
+    title?: any
     textSize?: Number,
     textColor?: any,
     textFontWeight?: boolean,

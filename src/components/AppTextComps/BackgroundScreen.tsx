@@ -9,7 +9,7 @@ type BgProps = {
 
 const BackgroundScreen = ({children,stylesPorp}: BgProps) => {
   return (
-    <View style={[stylesPorp,{flex:1, backgroundColor:AppColors.WHITE, padding:20}]}>
+    <View style={[stylesPorp,{flex:1, backgroundColor:AppColors.BGCOLOURS, padding:20}]}>
         {children}
     </View>
   )

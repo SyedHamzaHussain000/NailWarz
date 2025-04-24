@@ -4,8 +4,9 @@ import {
   Image,
   ImageBackground,
   TouchableOpacity,
+  FlatList,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import AppText from '../../components/AppTextComps/AppText';
 import AppColors from '../../utils/AppColors';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
@@ -20,7 +21,19 @@ import AppTextInput from '../../components/AppTextInput';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import APPImages from '../../assets/APPImages';
 import LinearGradient from 'react-native-linear-gradient';
+import AppButton from '../../components/AppButton';
+import Entypo from 'react-native-vector-icons/Entypo'
+import SaloonsCard from '../../components/SaloonsCard';
+import SaloonsArray from '../../utils/SaloonsArray';
 const Home = () => {
+  const [serviceSelected, setServiceSelect] = useState(0);
+  const Servies = [
+    {id: 1, name: 'Dip Powder Nails', icon: APPImages.COMB},
+    {id: 2, name: 'Gel Manicure/Pedicure', icon: APPImages.FACIAL},
+  ];
+
+
+
   return (
     <BackgroundScreen>
       <View
@@ -29,6 +42,7 @@ const Home = () => {
           alignItems: 'center',
           justifyContent: 'space-between',
           paddingHorizontal: 10,
+
         }}>
         <View style={{flexDirection: 'row'}}>
           <EvilIcons
@@ -49,9 +63,11 @@ const Home = () => {
         />
       </View>
 
+        <View style={{marginTop:20}}>
       <AppTextInput
         containerBg={AppColors.INPUTBG}
         inputPlaceHolder={'Enter address or city name'}
+        
         logo={
           <AntDesign
             name={'search1'}
@@ -60,6 +76,7 @@ const Home = () => {
           />
         }
       />
+      </View>
 
       <ImageBackground
         source={APPImages.DISCOUNT}
@@ -69,6 +86,7 @@ const Home = () => {
           borderRadius: 15,
           overflow: 'hidden',
           padding: 20,
+          marginTop:20
         }}>
         <LinearGradient
           colors={[
@@ -120,14 +138,87 @@ const Home = () => {
         </View>
       </ImageBackground>
 
-      <View style={{marginTop: 10}}>
+      <View style={{marginTop: 10, gap: 10}}>
         <AppText
           title="Services"
           textColor={AppColors.BLACK}
           textSize={3}
           textFontWeight
         />
+
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <FlatList
+            data={Servies}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{gap: 10}}
+            renderItem={({item, index}) => {
+              const logic = serviceSelected == index;
+              return (
+                <TouchableOpacity
+                  onPress={() => setServiceSelect(index)}
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    padding: 10,
+                    backgroundColor: logic
+                      ? AppColors.BTNCOLOURS
+                      : AppColors.WHITE,
+                    borderRadius: 10,
+                    gap: 5,
+                  }}>
+                  <Image
+                    source={item.icon}
+                    style={{height: 20, width: 20, resizeMode: 'contain'}}
+                  />
+                  <AppText
+                    title={item.name}
+                    textSize={2}
+                    textColor={logic ? AppColors.WHITE : AppColors.BLACK}
+                  />
+                </TouchableOpacity>
+              );
+            }}
+          />
+        </View>
       </View>
+
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginTop:20
+        }}>
+        <AppText
+          title="Nearby Salons"
+          textColor={AppColors.BLACK}
+          textSize={3}
+          textFontWeight
+        />
+
+        <View style={{flexDirection:'row', alignItems:'center', gap:3}}>
+          <Entypo
+          name={"location"}
+          color={AppColors.BLUE}
+          size={responsiveFontSize(2)}
+          />
+          <AppText title="View on Map" textColor={AppColors.BLUE} textSize={2} />
+        </View>
+      </View>
+
+        
+      <FlatList
+      data={SaloonsArray}
+      contentContainerStyle={{gap:10}}
+      renderItem={({item})=>{
+
+        return(
+          <SaloonsCard title={item.title} KM={item.KM}  Rating={item.Rating} TotalNoOfRating={item.TotalNoOfRating} img={item.img}  location={item.location}/>
+        )
+      }}
+      
+      />
     </BackgroundScreen>
   );
 };
